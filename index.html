@@ -4,176 +4,393 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Trang Bình Luận Cusdis</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+  <title>Trang Bình Luận Cusdis - Fixed</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: "Inter", sans-serif;
-      background:
-        radial-gradient(circle at top left, #1e293b 0%, #0f172a 40%),
-        #020617;
-      color: white;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .hero {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(14px);
-      border-radius: 24px;
-      padding: 50px;
-      box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.35);
-      margin-bottom: 30px;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #2563eb;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 14px;
-      margin-bottom: 20px;
-      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
     }
 
     h1 {
-      font-size: 42px;
-      margin-bottom: 16px;
-      line-height: 1.2;
+      color: #222;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
     }
 
-    .subtitle {
-      color: #cbd5e1;
-      font-size: 18px;
-      line-height: 1.8;
-      max-width: 700px;
-    }
-
-    .comment-box {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .comment-title {
-      color: #0f172a;
-      font-size: 28px;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-
-    .comment-desc {
-      color: #64748b;
-      margin-bottom: 25px;
-      line-height: 1.7;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #94a3b8;
-      font-size: 14px;
-    }
-
-    /* Fix xuống dòng Cusdis */
+    /* CSS cơ bản cho comment content - fallback nếu CSS không được inject vào shadow DOM */
     .cusdis-comment-content,
-    .cusdis-comment-content p {
+    .cusdis-comment-content p,
+    .cusdis-comment-text {
       white-space: pre-wrap !important;
       word-break: break-word;
-      line-height: 1.7;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.7 !important;
+      font-size: inherit;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 30px;
-      }
+    /* Ensure comments don't have text-align: center hoặc other whitespace-collapse */
+    .cusdis-comment-content * {
+      white-space: pre-wrap !important;
+    }
 
-      h1 {
-        font-size: 32px;
-      }
+    /* Style cho debug info */
+    .cusdis-debug-info {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 12px;
+      color: #666;
+      display: none;
+    }
 
-      .subtitle {
-        font-size: 16px;
-      }
-
-      .comment-box {
-        padding: 20px;
-      }
+    .cusdis-debug-info.active {
+      display: block;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <h1>Cusdis Comment System - Fixed Whitespace Issue</h1>
+  
+  <p>Test comment system dưới đây. Hãy thử:</p>
+  <ul>
+    <li>Comment có xuống dòng</li>
+    <li>Comment có nhiều khoảng trắng</li>
+    <li>Comment có list hoặc code snippet</li>
+  </ul>
 
-    <section class="hero">
-
-      <div class="badge">
-        💬 Cusdis Comment System
-      </div>
-
-      <h1>
-        Chào mừng đến với trang bình luận
-      </h1>
-
-      <p class="subtitle">
-        Đây là khu vực để mọi người cùng trao đổi, góp ý và thảo luận.
-        Hệ thống sử dụng Cusdis — một nền tảng comment nhẹ, hiện đại và tối giản.
-      </p>
-
-    </section>
-
-    <section class="comment-box">
-
-      <h2 class="comment-title">
-        Bình luận
-      </h2>
-
-      <p class="comment-desc">
-        Hãy để lại suy nghĩ của bạn bên dưới 👇
-      </p>
-
-      <div id="cusdis_thread"
-        data-host="https://cusdis.com"
-        data-app-id="03cb44a1-de57-4fb4-a0b8-89b8b55afac0"
-        data-page-id="home-page"
-        data-page-url="https://liemvu12.github.io/cusdis-test/"
-        data-page-title="Trang chủ">
-      </div>
-
-    </section>
-
-    <footer>
-      © 2026 • Powered by Cusdis
-    </footer>
-
+  <div class="cusdis-debug-info" id="debugInfo">
+    <strong>Debug Info:</strong>
+    <div id="debugContent">Checking Cusdis DOM structure...</div>
   </div>
 
+  <!-- Cusdis Thread Container -->
+  <div id="cusdis_thread"
+    data-host="https://cusdis.com"
+    data-app-id="03cb44a1-de57-4fb4-a0b8-89b8b55afac0"
+    data-page-id="home-page"
+    data-page-url="https://liemvu12.github.io/cusdis-test/"
+    data-page-title="Trang chủ">
+  </div>
+
+  <!-- Load Cusdis script -->
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+  <!-- Fix Script - Phải chạy AFTER Cusdis loads -->
+  <script>
+    // ============================================================
+    // CUSDIS WHITESPACE FIX - Comprehensive Solution
+    // ============================================================
+
+    class CusdisWhitespaceFixer {
+      constructor() {
+        this.processed = new Set();
+        this.shadowRootsFound = [];
+        this.initDelay = 0;
+        this.maxRetries = 15;
+        this.retryCount = 0;
+        this.observer = null;
+        this.debugMode = false; // Change to true để xem debug logs
+        
+        // Start monitoring immediately
+        this.waitForCusdisAndFix();
+      }
+
+      log(msg, data = '') {
+        if (this.debugMode) {
+          console.log(`[CusdisWhitespaceFixer] ${msg}`, data);
+        }
+      }
+
+      updateDebugInfo(msg) {
+        const debugElement = document.getElementById('debugContent');
+        if (debugElement) {
+          debugElement.innerHTML += `<div>${msg}</div>`;
+        }
+      }
+
+      waitForCusdisAndFix() {
+        // Wait for Cusdis to initialize
+        if (typeof window.CUSDIS === 'undefined') {
+          this.initDelay++;
+          if (this.initDelay > 50) {
+            this.log('Cusdis not loaded after 5s, proceeding anyway');
+            this.setupMutationObserver();
+            return;
+          }
+          setTimeout(() => this.waitForCusdisAndFix(), 100);
+          return;
+        }
+
+        this.log('Cusdis detected, starting fix...');
+        this.setupMutationObserver();
+        this.fixExistingComments();
+      }
+
+      setupMutationObserver() {
+        // Watch for new comments being added
+        const threadContainer = document.getElementById('cusdis_thread');
+        if (!threadContainer) {
+          this.log('cusdis_thread container not found');
+          return;
+        }
+
+        const config = {
+          childList: true,
+          subtree: true,
+          characterData: true,
+          characterDataOldValue: false,
+          attributes: true,
+          attributeFilter: ['class', 'style'],
+          attributeOldValue: false
+        };
+
+        this.observer = new MutationObserver((mutations) => {
+          this.retryCount++;
+          this.fixExistingComments();
+          
+          if (this.retryCount >= this.maxRetries) {
+            this.observer.disconnect();
+            this.log('Max retries reached, stopping observer');
+          }
+        });
+
+        this.observer.observe(threadContainer, config);
+        this.log('MutationObserver setup on cusdis_thread');
+      }
+
+      fixExistingComments() {
+        this.log('Scanning for comments...');
+        
+        // Strategy 1: Direct DOM selectors
+        this.applyDirectDOMFix();
+        
+        // Strategy 2: Shadow DOM penetration
+        this.applyShadowDOMFix();
+        
+        // Strategy 3: iframe detection
+        this.detectIframes();
+      }
+
+      applyDirectDOMFix() {
+        // Target: .cusdis-comment-content, .cusdis-comment-text, etc
+        const selectors = [
+          '.cusdis-comment-content',
+          '.cusdis-comment-text',
+          '.cusdis-content',
+          '[class*="comment-content"]',
+          '[class*="comment-text"]'
+        ];
+
+        for (const selector of selectors) {
+          const elements = document.querySelectorAll(selector);
+          for (const el of elements) {
+            const key = this.getElementKey(el);
+            if (this.processed.has(key)) continue;
+
+            this.fixElement(el);
+            this.processed.add(key);
+            this.log(`Fixed direct DOM: ${selector}`, el);
+            this.updateDebugInfo(`✓ Fixed comment element via selector: ${selector}`);
+          }
+        }
+      }
+
+      applyShadowDOMFix() {
+        // Cusdis có thể dùng Web Components với shadow DOM
+        this.walkShadowDOM(document.body);
+      }
+
+      walkShadowDOM(element) {
+        if (element.shadowRoot) {
+          this.log('Shadow DOM found', element);
+          this.shadowRootsFound.push(element);
+          this.updateDebugInfo(`⚠ Shadow DOM detected in: ${element.tagName}`);
+          
+          // Fix elements trong shadow DOM
+          this.fixShadowDOMContents(element.shadowRoot);
+        }
+
+        // Recurse to children
+        for (const child of element.children) {
+          this.walkShadowDOM(child);
+        }
+      }
+
+      fixShadowDOMContents(shadowRoot) {
+        // Tìm comment elements trong shadow DOM
+        const selectors = [
+          '.cusdis-comment-content',
+          '.cusdis-comment-text',
+          '.cusdis-content',
+          '[class*="comment"]'
+        ];
+
+        for (const selector of selectors) {
+          const elements = shadowRoot.querySelectorAll(selector);
+          for (const el of elements) {
+            const key = this.getElementKey(el);
+            if (this.processed.has(key)) continue;
+
+            this.fixElement(el);
+            this.processed.add(key);
+            this.log(`Fixed shadow DOM element: ${selector}`, el);
+          }
+        }
+
+        // Inject CSS vào shadow DOM
+        this.injectCSSToShadowDOM(shadowRoot);
+      }
+
+      injectCSSToShadowDOM(shadowRoot) {
+        // Check if style already exists
+        if (shadowRoot.querySelector('style[data-cusdis-fix="true"]')) {
+          return;
+        }
+
+        const style = document.createElement('style');
+        style.setAttribute('data-cusdis-fix', 'true');
+        style.textContent = `
+          .cusdis-comment-content,
+          .cusdis-comment-text,
+          .cusdis-content,
+          [class*="comment-content"],
+          [class*="comment-text"] {
+            white-space: pre-wrap !important;
+            word-break: break-word !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            line-height: 1.7 !important;
+          }
+
+          * {
+            word-break: break-word !important;
+          }
+        `;
+
+        shadowRoot.appendChild(style);
+        this.log('CSS injected to shadow DOM');
+        this.updateDebugInfo('✓ Injected CSS into shadow DOM');
+      }
+
+      fixElement(el) {
+        // Apply inline styles (highest specificity)
+        el.style.whiteSpace = 'pre-wrap';
+        el.style.wordBreak = 'break-word';
+        el.style.wordWrap = 'break-word';
+        el.style.overflowWrap = 'break-word';
+        el.style.lineHeight = '1.7';
+
+        // Also fix any child elements that might contain text
+        const children = el.querySelectorAll('*');
+        for (const child of children) {
+          if (child.style) {
+            child.style.whiteSpace = 'pre-wrap';
+            child.style.wordBreak = 'break-word';
+          }
+        }
+
+        // Restore line breaks if they were HTML-encoded
+        this.restoreLineBreaks(el);
+      }
+
+      restoreLineBreaks(el) {
+        // Some systems convert \n to &lt;br&gt; or other entities
+        // or keep them as literal \n strings
+        const walker = document.createTreeWalker(
+          el,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+
+        const nodesToFix = [];
+        let currentNode;
+
+        while (currentNode = walker.nextNode()) {
+          if (currentNode.nodeValue.includes('\\n')) {
+            nodesToFix.push(currentNode);
+          }
+        }
+
+        // Handle escaped newlines
+        for (const node of nodesToFix) {
+          // This handles literal \n strings if Cusdis sends them
+          node.nodeValue = node.nodeValue.replace(/\\n/g, '\n');
+        }
+      }
+
+      detectIframes() {
+        const iframes = document.querySelectorAll('iframe');
+        for (const iframe of iframes) {
+          // Check if this might be a Cusdis iframe
+          if (iframe.src && iframe.src.includes('cusdis')) {
+            this.log('Cusdis iframe detected', iframe);
+            this.updateDebugInfo(`⚠ Detected Cusdis iframe: ${iframe.src}`);
+            
+            // Attempt to access iframe content (may fail due to CORS)
+            try {
+              const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+              if (iframeDoc) {
+                this.injectCSSToIFrame(iframeDoc);
+              } else {
+                this.updateDebugInfo('⚠ Cannot access iframe content (CORS restricted)');
+              }
+            } catch (e) {
+              this.log('Cannot access iframe (CORS):', e.message);
+              this.updateDebugInfo(`⚠ CORS prevents iframe access: ${e.message}`);
+            }
+          }
+        }
+      }
+
+      injectCSSToIFrame(iframeDoc) {
+        const style = iframeDoc.createElement('style');
+        style.setAttribute('data-cusdis-fix', 'true');
+        style.textContent = `
+          * {
+            white-space: pre-wrap !important;
+            word-break: break-word !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+          }
+
+          body, p, div, span {
+            line-height: 1.7 !important;
+          }
+        `;
+        iframeDoc.head.appendChild(style);
+        this.log('CSS injected to iframe');
+      }
+
+      getElementKey(el) {
+        // Create unique key for element to avoid double-processing
+        return `${el.tagName}_${el.className}_${el.offsetParent?.offsetTop}_${Math.random()}`;
+      }
+    }
+
+    // Initialize fixer when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        new CusdisWhitespaceFixer();
+      });
+    } else {
+      new CusdisWhitespaceFixer();
+    }
+
+    // Also initialize after a delay to catch late-loading components
+    setTimeout(() => {
+      const fixer = new CusdisWhitespaceFixer();
+    }, 2000);
+  </script>
 
 </body>
 
